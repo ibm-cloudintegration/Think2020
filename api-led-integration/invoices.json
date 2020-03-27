@@ -1,0 +1,39 @@
+{
+	"invoices": [{
+		"forenames": ["Christopher", "Simon"],
+		"surname": "Bygrave",
+		"items": [{
+			"code": "0123",
+			"description": "Twister",
+			"category": "Games",
+			"price": "0.30",
+			"quantity": 1
+		}, {
+			"code": "0456",
+			"description": "The Times Newspaper",
+			"category": "Books and Media",
+			"price": "0.20",
+			"quantity": 1
+		}],
+		"balance": "0.50",
+		"currency": "Sterling"
+	}, {
+		"forenames": ["Robert"],
+		"surname": "Nicholson",
+		"items": [{
+			"code": "0451",
+			"description": "The Origin of Species",
+			"category": "Books and Media",
+			"price": "22.34",
+			"quantity": 2
+		}, {
+			"code": "0671",
+			"description": "Microscope",
+			"category": "Miscellaneous",
+			"price": "36.20",
+			"quantity": 1
+		}],
+		"balance": "81.84",
+		"currency": "Euros"
+	}]
+}
