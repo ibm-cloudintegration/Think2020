@@ -19,16 +19,6 @@ spec:
     - name: image
       type: image
   tasks:
-  #- name: generate-bar
-  #  resources:
-  #    inputs:
-  #    - name: source
-  #      resource: source
-  #  params:
-  #    - name: project
-  #      value: $(params.project)
-  #  taskRef:
-  #    name: generate-bar 
   - name: build-image
     resources:
       inputs:
@@ -43,9 +33,7 @@ spec:
       - name: dockerfileLocation
         value: ./Dockerfile
     taskRef:
-      name: build-ace-server
-#    runAfter:
-#    - generate-bar   
+      name: build-ace-server  
   - name: install-ace-server
     resources:
       inputs:
