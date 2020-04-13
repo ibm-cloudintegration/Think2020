@@ -1,0 +1,31 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-ace-server
+spec:
+  params:
+    - name: buildversion
+      description: Docker image version for the BAR file
+      default: ""
+      
+  resources:
+    - name: source
+      type: git
+    - name: image
+      type: image
+  tasks:
+  - name: build-task
+    resources:
+      inputs:
+      - name: source
+        resource: source
+      outputs:
+      - name: image
+        resource: image
+    params:
+      - name: buildversion
+        value: $(params.buildversion)
+      - name: dockerfileLocation
+        value: ./Dockerfile
+    taskRef:
+      name: build-ace-server
