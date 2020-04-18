@@ -68,7 +68,7 @@ spec:
         echo Environment    : $ENV;
         echo Image          : $IMAGE;
 
-        cd $INTEGRATION_COMPONENT;
+        cd ./cp4i-ace-server-master/$INTEGRATION_COMPONENT;
         echo "Running setup.sh";
         sh setup.sh
         echo "Running install.sh";

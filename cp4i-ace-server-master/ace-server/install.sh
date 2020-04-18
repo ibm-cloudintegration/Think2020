@@ -3,7 +3,7 @@ PROJECT=ace-deploy
 RELEASE=$PROJECT-dev
 
 ACE_IMAGE=$IMAGE
-PULL_SECRET=deployer-dockercfg-tjb8t
+PULL_SECRET=deployer-dockercfg-wc87b
 PRODUCTION_DEPLOY=false
 TLS_HOSTNAME=$(oc get routes -n kube-system | grep proxy | awk -F' ' '{print $2 }')
 # In case of IBM Cloud use ibmc-file-gold for the file storage
