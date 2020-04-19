@@ -44,8 +44,8 @@ In [Part 2](#Part 2: Deploy the integration application to OpenShift Container P
 
 The artifacts for the lab can be found in the following directories. 
 
-* /home/ibmuser/Think2020/lab-5280-Achieving-Agile-Integration
-* /home/ibmuser/Think2020/cp4i-ace-server-master
+* /home/ibmuser/Think2020/lab-5280
+* /home/ibmuser/Think2020/cp4i-ace-server
 
 ### Part 1: Test the the integration application locally using ACE docker image
 
@@ -116,34 +116,41 @@ This completes Part 1 of the lab.  This shows that the integration application i
 
 -
 
-###Part 2: Deploy the integration application to OpenShift Container Platform using OpenShift pipelines 
+###Part 2: Deploy the integration application to Cloud Pak for Integration OpenShift Container Platform using OpenShift pipelines 
 
 In this part of the lab, you will learn:
 
 1. Basic concepts used by OpenShift pipelines
-2. Create a pipeline to build and deploy ace integration application
-3. Run the pipeline, check its status and troubleshoot problems
+2. Define a pipeline to automate build and deploy ace integration application
+3. Run the pipeline using Tekton dashboard and check status 
+4. Test the integration application deployed by the pipeline
 
+This shows you how to acheive aigle integration. 
 
-#####1. Basic concepts used by OpenShift pipelines
+#####1. Basic concepts of OpenShift pipelines
 
 OpenShift Pipelines is a cloud native Kubernetes-style CI/CD solution designed to run each step of the CI/CD pipeline in its own container, allowing each step to scale independently to meet the demands of the pipeline. OpenShift Pipelines is based on Tekton open source project. 
 
 Follow this [link for a short introduction to OpenShift Pipelines](https://www.openshift.com/blog/cloud-native-ci-cd-with-openshift-pipelines)
 
-OpenShift CI/CD pipline is defined usig a set of Kubernetes custom resources (CRD) as standard constructs. The following is a brief introduction to these CRDs:
+OpenShift CI/CD pipline is defined usig a set of Kubernetes custom resource definitions (CRD). The following is a brief introduction to these CRDs:
 
-*     **Task:** A sequence of commands (steps) that are run in separate containers in a  pod.
-*     **PipelineResource:** Inputs (e.g. git repo) and outputs (e.g. image registry) to a pipeline.
-*     **TaskRun:** Runtime representation of an execution of a task.
-*     **PipelineRun:** Runtime representation of an execution of a pipeline.
+
 *     **Pipeline:** A collection of tasks that are executed in a defined order.
-
-In addition there are also secrets that are required to access input and output pipeline resources. 
-
-
-
-
-The CRDs for the lab are provided for you and can be found in directory 
+*     **Task:** A sequence of commands (steps) that are run in the pipeliine. Tasks are run in separate containers in the pipeline pod.
+*     **PipelineResource:** Inputs (e.g. git repo) and outputs (e.g. image registry) to a pipeline.
+*     **Secrets:** Secrets that are required to access the input and output resources for pipeline.
+*     **PipelineRun:** Runtime representation of an execution of a pipeline.
+*    **TaskRun:** Runtime representation of an execution of a task.
 
 
+Following diagram shows all the artifacts and the references between them:
+
+
+![](./img/Tekton-pipeline.png)
+
+
+#####1. Define a pipeline to automate build and deploy ace integration application
+
+
+The definitions required to automate build and deploy an ace integration for this lab have been provided for you. You can find all the defintions in directory  provided for you and can be found in directory 

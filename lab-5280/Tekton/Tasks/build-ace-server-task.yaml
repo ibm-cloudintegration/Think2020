@@ -19,7 +19,7 @@ spec:
       default: ""
     - name: dockerfileLocation
       description: Path to the Dockerfile to build.
-      default: "./cp4i-ace-server-master/Dockerfile"
+      default: "./cp4i-ace-server/Dockerfile"
 
     resources:
     - name: source
