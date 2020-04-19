@@ -5,6 +5,6 @@ metadata:
 spec:
   params:
   - name: url
-    value: https://github.ibm.com/imandi/cp4i-ace-server1
+    value: https://github.com/ibm-cloudintegration/Think2020
   type: git
 

@@ -31,7 +31,7 @@ spec:
       - name: buildversion
         value: $(params.buildversion)
       - name: dockerfileLocation
-        value: ./Dockerfile
+        value: ./cp4i-ace-server/Dockerfile
     taskRef:
       name: build-ace-server  
   - name: install-ace-server

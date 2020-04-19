@@ -28,7 +28,7 @@ spec:
             
   steps:
   - name: install-instance
-    image: docker.io/rsundara/cp4i-setup
+    image: docker.io/pimandi/cloudctl-helm-oc
     workingdir: /workspace/source
     env:
       - name: INTEGRATION_COMPONENT
