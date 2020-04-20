@@ -49,7 +49,7 @@ In [Part 2](#Part 2: Deploy the integration application to OpenShift Container P
 
 `git clone https://github.com/ibm-cloudintegration/Think2020.git`
 
-![](https://github.com/ibm-cloudintegration/Think2020/blob/master/lab-5280/img/gitclone.png)
+![](../img/gitclone.png)
 
 The artifacts for the lab can be found in the following directories. 
 
