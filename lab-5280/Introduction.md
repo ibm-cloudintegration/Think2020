@@ -200,9 +200,19 @@ Click on each of these definitions and you can see the resources used by the tas
 
 4\. `Secrets` : Running the pipe requires access credentials to the input and output resources being used by the tasks. The definitions for secrets are provided for you. 
 
-In atom editor, expand this directory and you will see four definitions for secrets as shown below.  
+In atom editor, expand this directory and you will see the definitions for secrets as shown below.  
 
 ![](./img/atom-secrets.png)
 
-Click on each of these definitions and you can see the resources used by the tasks for the execution of the pipeline. 
+Next, we will updated the definitions for Secrets for your environment. 
+
+Click on the definition `cp4i-git-secret.yaml` and update with your Git username and password as indicated in the below parameters and save the definition. 
+
+![](./img/git-secret.png)
+
+The next definition that needs to be updated is `cp4i-docker-secret-yaml`. This definition is for the docker credentials for the pipeline to push the image to OpenShift registry. 
+
+Click on the definition `cp4i-docker-secret.yaml` and update the parameters shown below with your the credentials for your environment.
+
+![](./img/docker-secret.png)
 
