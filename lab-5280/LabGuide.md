@@ -7,7 +7,7 @@ summary: api docs
 applies_to: [developer,administrator,consumer]
 ---
 
-# Achieving Agile Integration
+# Achieving Agile Integration Lab
 
 ## Introduction
 
@@ -49,8 +49,7 @@ In [Part 2](#Part 2: Deploy the integration application to OpenShift Container P
 
 `git clone https://github.com/ibm-cloudintegration/Think2020.git`
 
-
-![](./img/gitclone.png)
+![](https://github.com/ibm-cloudintegration/Think2020/blob/master/lab-5280/img/gitclone.png)
 
 The artifacts for the lab can be found in the following directories. 
 
