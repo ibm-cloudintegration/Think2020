@@ -18,23 +18,26 @@ In [Part 2](#Part 2: Deploy the integration application to OpenShift Container P
 
 ### Environment used for this lab
 
-1. Cloud Pak for Integration runnnig on OpenShift Container Platform V4.2 running with one master, and four worker nodes. 
-2. Developer VM you will use to access the OpenShift cluster for the lab. 
+1\. Cloud Pak for Integration runnnig on OpenShift Container Platform V4.2 running with one master, and four worker nodes. 
+
+2\. In this lab we are using OpenShift pipelines as the CI/CD tool and Tekton dashboard to run the pipeline and see the status. These tools have already been installed for you in the lab environment. 
+
+3\. Developer VM you will use to access the OpenShift cluster for the lab. 
 
 
 	**Informaton required to perform the lab:** 
 		
 	Login credentials for the Developer VM
 		
-	User ID: **ibmuser**
+	User ID: ibmuser
 		
-	Password: **passw0rd**
+	Password: passw0rd
 		
 	Note, the password contains a zero, not an uppercase letter O.
 	
-	After logging into the Developer VM, you can use following URLs to access :
-		OpenShift Admin Console : [https://console-openshift-console.apps.demo.ibmdte.net/dashboards](https://console-openshift-console.apps.demo.ibmdte.net/dashboards)
-			CP4I Platform Navigator : [https://cp4i-integration.apps.demo.ibmdte.net/](https://cp4i-integration.apps.demo.ibmdte.net/)
+
+
+ 
 
 3. The artifacts to perform this lab are available on a public Git repo. Open a terminal window and clone the git repo using below command.
 
@@ -248,11 +251,7 @@ Also copy the token and update the definition for secret `cp4i-docker-secret.yam
 
 ![](./img/docker-secret-updated.png)
 
-Now that you have all the definitions required to run the pipeline for your environment, we are ready to run the pipeline. 
-
-#####3. Run the pipeline using Tekton dashboard and check status 
-
-In this lab we will use OpenShift pipelines as the CI/CD tool and Tekton dashboard to run the pipeline and see the status. These tools have already been installed for you in the lab environment. 
+Next, we will create all the definitions in OpenShift. 
 
 Openshift pipeline requires a project for running a pipeline. From the terminal in which you logged into OpenShift earlier, run the following command to create the project `cp4i-setup`.
 
@@ -262,25 +261,110 @@ This command will create the project and will start using the project as shown b
 
 ![](./img/newproject.png)
 
-Next we will create all the definitions required for the pipeline within this project. We will use the below shown command to create OpenShift resources using all the definitions files you have previously reviewed. 
+Next we will create all the definitions required for the pipeline within this project. To make this easier, a script has been provided and is in directory `/home/ibmuser/Think2020/lab-5280`. 
 
-`oc create -f <definition.yaml>`
+In the terminal window, change directory to `/home/ibmuser/Think2020/lab-5280` and run script `createTektonResources.sh`. Note, you may have to give execute permission to the script as shown below. 
 
-In terminal window, change directory to `/home/ibmuser/Think2020/lab-5280/Tekton/Secrets`. You should see the definitions for secrets you have previously updated in this directory as shown below. 
+ ![](./img/createtektonres.png)
+ 
+ The output of the script should be as shown above, showing all the resource definitions have been created. 
+ 
+ Next, OpenShift pipeline uses a service account called `pipeline` during runtime. This service account will require access to the resources that the pipeline is using and so needs to be updated to use the secrets for those resources. 
+ 
+ From the terminal prompt, run the below command to update the service account `pipeline`.
+ 
+ `oc edit sa pipeline`
+ 
+ This opens the definition in a `vi` editor. Update with the secrets by adding docker-secret and git-secret as shown below and save. 
+ 
+  ![](./img/sa-update.png)
 
-![](./img/create-secrets.png)
+This completes creating all the custom resource definitions required to run the pipeline. Now that you have all the definitions required to run the pipeline for your environment, we are ready to run the pipeline. 
 
-Using the command provided above, create the three secrets as shown below. 
+####3. Run the pipeline using Tekton dashboard and check status 
 
-![](./img/create-secrets1.png)
+We will run the pipeline using Tekton dashboard that has been installed in the lab environment. In Firefox browser, click on the bookmark `Tekton Dashboard` as shown below.
 
-Next change directory to `/home/ibmuser/Think2020/lab-5280/Tekton/Resources`. You should see the definitions for pipeline resources you have previously reviewed as shown below. 
+  ![](./img/tekton-db.png)
 
-![](./img/create-resources.png)
+You should see the Tekton dashboard as below. Note the pipeline you have created `ace-server-deploy` is shown in the dashboard. This is the pipeline you will run for a fully automated deployment of integration application. 
 
-Using the command, create the two pipeline resources as shown below.
 
-![](./img/create-resources1.png)
+  ![](./img/tekton-db1.png)
+  
 
+Click on `Tasks` to see the tasks you have defined. You can also explore the dashboard to see other artifacts that are available. 
+
+To start the pipeline, click on `Pipelines` and `ace-server-deploy`. You should see `PipelineRuns`. Click on `Create` as shown below. 
+
+  ![](./img/tekton-db2.png)
+  
+This will open a window with parameters to input for creating a PipelineRun. Select the values for source, image from the drop down and enter 1.1 for buildversion as shown below. 
+
+  ![](./img/tekton-db3.png)
+
+Scroll down and select `pipeline` for ServiceAccount from the drop down. Leave default values for the remaining parameters and click on `Create` to start the pipeline as shown below. 
+
+  ![](./img/tekton-db4.png)
+
+You should see the below message. Click on the PipelineRun to see progress of the running pipeline
+
+  ![](./img/tekton-db5.png)
+
+The dashboard will now be showing you the color coded progress of the pipeline run with detailed messages on the status as shown below. 
+
+  ![](./img/tekton-db6.png)
+
+Once the pipeline run is completed, you should see the follownig showing a successful build and install. 
+
+  ![](./img/tekton-db7.png)
+
+You can click on Logs, Status and Details and look at the detailed messages generated during the pipeline run. 
+
+To confirm the ace server has been deployed, go to the terminal you used before to create the defintions and run the below command to check on the pods in `ace` project. 
+
+`oc get pods -n ace`
+
+This should show the ace server pods running as shown below. 
+
+  ![](./img/ace-server.png)
+
+Next, let us test the integration flow to confirm it is deployed. 
+
+####4. Test the integration application deployed by the pipeline 
+
+The integration application provides a REST api to be called by external applications. OpenShift requires a `route` to be created to expose a service externally. 
+
+We will create a route from OpenShift console. From Firefox, click on the bookmark to open OpenShift console as shown below. 
+
+  ![](./img/Console.png)
+
+In the console, scroll down to `Networking` and click on the drop down and select `Routes` as shown below.
+
+  ![](./img/Console-route.png)
+  
+Select `ace` project from the drop down and click on `Create Route` as shown below.
+
+  ![](./img/Console-route1.png)
+  
+  
+For the route, enter the Name, select Service from drop down and Target Port as shown below and click on `Create`.
+
+  ![](./img/Console-route2.png)
+  
+This will create the route for external applications to call the integration REST api. The route will provide a url for the external applications as shown below. 
+
+  ![](./img/Console-route3.png)
+  
+Copy the url shown by the route, open a newe browser window and call the intetgration REST API using the url from route and hte API endpoint provided by the integration application. The entire url is below. 
+
+`http://ace-test-app-ace.apps.demo.ibmdte.net/cp4iivt/v1/hello`
+
+Below is the output you should see in the browser when calling the url with integration API endpoint. 
+
+  ![](./img/Console-route4.png)
+  
+
+This shows the integration applcation has been deployed usng DevOps automation with OpenShift pipelines. 
 
 

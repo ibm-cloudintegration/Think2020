@@ -2,7 +2,7 @@
 
 
 # Create Secrets
-oc create -f ./Tekton/Secrets/cp4i-commonservices-secret.yaml
+# oc create -f ./Tekton/Secrets/cp4i-commonservices-secret.yaml
 oc create -f ./Tekton/Secrets/cp4i-docker-secret.yaml
 oc create -f ./Tekton/Secrets/cp4i-git-secret.yaml
 
