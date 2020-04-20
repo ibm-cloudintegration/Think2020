@@ -46,6 +46,10 @@ The artifacts for the lab can be found in the following directories.
 
 * `/home/ibmuser/Think2020/lab-5280`
 
+-
+Note: You will need an account on `github.com` to perform this lab. You can use your existing account if you have one. If not, you can create a account on [github.com](github.com) before proceeding.
+-
+
 ### Part 1: Test the the integration application locally using ACE docker image
 
 
@@ -149,7 +153,7 @@ Following diagram shows all the artifacts and the references between them:
 ![](./img/Tekton-pipeline.png)
 
 
-#####1. Define a pipeline to automate build and deploy ace integration application
+#####2. Define a pipeline to automate build and deploy ace integration application
 
 
 The definitions required to automate build and deploy an ace integration for this lab have been provided for you. You can find them in directory `/home/ibmuser/Think2020/lab-5280/Tekton`. 
@@ -160,27 +164,45 @@ Open a terminal window and change directory to `/home/ibmuser/Think2020/lab-5280
 
 You will see four directories  as shown above, where the name of each directory indicates the definitions it contains. Change into each directory and review the definitions provided for you. They will be as follows:
 
-1\. `Pipelines` : This directory contains two pipeline definitions `ace-server-build-pipeline.yaml` and `ace-server-deploy-pipeline.yaml`. The names of these definitions indicate the function being performed. 
+1\. `Pipelines` : This directory contains the pipeline definition `ace-server-deploy-pipeline.yaml`. As the name indicates, this definition is for the automated ace server deployment pipeline.  
 
-The first definition `ace-server-build-pipeline.yaml` builds an ace image with the compiled integration application bar file. The second definition `ace-server-deploy-pipeline.yaml` deployes the ace image that was built by the build pipeline to Cloud Pak for Integration OpenShift platform. 
+The definition `ace-server-deploy-pipeline.yaml` builds an ace image with the compiled integration application bar file and deployes the image to Cloud Pak for Integration OpenShift platform. 
 
 In terminal, type`atom` to open the editor to review these definitions.
 
 ![](./img/atom.png)
 
-Expand `Pipelines` and select each defintion to review these definitions provided for you. 
+Open the folder Tekton to view the definitions. 
+
+Expand `Pipelines` and select defintion to review the definition provided for you. 
 
 ![](./img/atom-pipelines.png)
 
 
-You can see the pipeline definitions are calling tasks `build-ace-server` and `install-ace-server `respectively. These tasks definitions are provided for you in the `Tasks` directory. 
+You can see the pipeline definition is calling tasks `build-image` and `install-ace-server`. The definitions for these tasks are in the `Tasks` directory. 
 
-2\. `Tasks` : This directory contains two task definitions `build-ace-server-task.yaml` and `install-ace-server-task.yaml`. The names of these task definitions indicate the function being performed. 
+2\. `Tasks` : In atom editor, expand this directory and you will see the two tasks definitions `build-ace-server-task.yaml` and `install-ace-server-task.yaml`. The names of these task definitions indicate the functions being performed respectively. 
 
-The first task definition `build-ace-server-task.yaml` builds an ace image with the compiled integration application bar file and pushes the image into OpenShift image registry. Review this task and you can see an input property `dockerfileLocation` from where it fetches Dockerfile to build the ace image. The tasks uses `Git` as input resource and `OpenShiftt image repository` as output resource. The `Dockerfile` used by the task can be found in directory `/home/ibmuser/Think2020/cp4i-ace-server`.
+![](./img/atom-tasks.png)
 
- and uses Git as input resource and uses ACE image from  and OpenShift image registry as output resource. The resource files are provided in `Resources` directory. 
 
-The second definition `ace-server-deploy-pipeline.yaml` deployes the ace image that was built by the build pipeline to Cloud Pak for Integration OpenShift platform. 
+The first task definition `build-ace-server-task.yaml` builds an ace image with the compiled integration application bar file and pushes the image into OpenShift image registry. 
 
-Review these definitions provided for you. You can see the pipeline definitions are calling tasks `build-ace-server` and `install-ace-server `respectively. These tasks definitions are provided for you in the `Tasks` directory.
+Select this task to review the definition and you can see an input property `dockerfileLocation` from where it fetches Dockerfile to build the ace image. The tasks uses `Git` as input resource and `OpenShift image repository` as output resource. The `Dockerfile` used by the task can be found in directory `/home/ibmuser/Think2020/cp4i-ace-server`. The build is performed by a cloud native tool called `buildah` which facilitates building container images. During execution of the pipeline, buildah is pulled from quay.io repository if it is not available locally. 
+
+Select the second task `ace-server-deploy-pipeline.yaml` to review the definition. This task deployes the ace image that was built by the build task to Cloud Pak for Integration OpenShift platform. This task requires CLI tools `oc, cloudctl and helm` to perform the deployment. When pipeline is executed, during the task run the docker image specifically built with these tools is pulled from `docker.io/pimandi/cloudctl-helm-oc`.
+
+3\. `Resources` : The resource definitions used by the tasks are provided for you in this directory. In atom editor, expand this directory and you will see the two resource definitions `cp4i-ace-server-source-pipelineresource.yaml` and `cp4i-ace-server-image-pipelineresource.yaml`. 
+
+![](./img/atom-resources.png)
+
+Click on each of these definitions and you can see the resources used by the tasks for the execution of the pipeline.  The resource uses a Git repo `https://github.com/ibm-cloudintegration/Think2020` for source and OpenShift image registry for the image. 
+
+4\. `Secrets` : Running the pipe requires access credentials to the input and output resources being used by the tasks. The definitions for secrets are provided for you. 
+
+In atom editor, expand this directory and you will see four definitions for secrets as shown below.  
+
+![](./img/atom-secrets.png)
+
+Click on each of these definitions and you can see the resources used by the tasks for the execution of the pipeline. 
+
