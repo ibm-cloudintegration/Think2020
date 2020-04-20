@@ -72,7 +72,7 @@ In this section of the lab, you will start with simple integration application a
 3. Perform local testing of the provided compiled integration application by deploying the BAR file to a local Docker ACE Container. 
 
 
-#####1. Pull ACE docker image from Docker Hub 
+####1. Pull ACE docker image from Docker Hub 
 
 Pull the docker image for ACE from Docker Hub repository using command:
 
@@ -89,7 +89,7 @@ See the docker images available in local repository using command:
 ![](./img/dockerimages.png)
 
 
-#####2. Run Integration Server within docker container for local testing
+####2. Run Integration Server within docker container for local testing
 
 Run the ACE image in a docker container using below command for local testing of the integration application 
 
@@ -104,7 +104,7 @@ Command will start ACE integration server running in local docker container. You
 
 Leave the terminal window open with the integration server running in docker container. If you interrupt the command it will stop the Integration server and terminate the container.
 
-#####3. Perform local testing of the provided compiled integration application (bar file)
+####3. Perform local testing of the provided compiled integration application (bar file)
 
 Open another terminal window and change directory to `/home/ibmuser/Think2020/cp4i-ace-server-master/cp4iivt/gen`
 
@@ -143,7 +143,7 @@ In this part of the lab, you will learn:
 
 This shows you how to acheive aigle integration. 
 
-#####1. Basic concepts of OpenShift pipelines
+####1. Basic concepts of OpenShift pipelines
 
 OpenShift Pipelines is a cloud native Kubernetes-style CI/CD solution designed to run each step of the CI/CD pipeline in its own container, allowing each step to scale independently to meet the demands of the pipeline. OpenShift Pipelines is based on Tekton open source project. 
 
@@ -166,7 +166,7 @@ Following diagram shows all the artifacts and the references between them:
 ![](./img/Tekton-pipeline.png)
 
 
-#####2. Define a pipeline to automate build and deploy ace integration application
+####2. Define a pipeline to automate build and deploy ace integration application
 
 
 The definitions required to automate build and deploy an ace integration for this lab have been provided for you. You can find them in directory `/home/ibmuser/Think2020/lab-5280/Tekton`. 
@@ -347,24 +347,24 @@ The integration application provides a REST api to be called by external applica
 
 We will create a route from OpenShift console. From Firefox, click on the bookmark to open OpenShift console as shown below. 
 
-  ![](./img/Console.png)
+  ![](./img/console.png)
 
 In the console, scroll down to `Networking` and click on the drop down and select `Routes` as shown below.
 
-  ![](./img/Console-route.png)
+  ![](./img/console-route.png)
   
 Select `ace` project from the drop down and click on `Create Route` as shown below.
 
-  ![](./img/Console-route1.png)
+  ![](./img/console-route1.png)
   
   
 For the route, enter the Name, select Service from drop down and Target Port as shown below and click on `Create`.
 
-  ![](./img/Console-route2.png)
+  ![](./img/console-route2.png)
   
 This will create the route for external applications to call the integration REST api. The route will provide a url for the external applications as shown below. 
 
-  ![](./img/Console-route3.png)
+  ![](./img/console-route3.png)
   
 Copy the url shown by the route, open a newe browser window and call the intetgration REST API using the url from route and hte API endpoint provided by the integration application. The entire url is below. 
 
@@ -372,7 +372,7 @@ Copy the url shown by the route, open a newe browser window and call the intetgr
 
 Below is the output you should see in the browser when calling the url with integration API endpoint. 
 
-  ![](./img/Console-route4.png)
+  ![](./img/console-route4.png)
   
 
 This shows the integration applcation has been deployed usng DevOps automation with OpenShift pipelines. 
