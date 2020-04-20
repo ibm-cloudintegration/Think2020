@@ -258,4 +258,29 @@ Openshift pipeline requires a project for running a pipeline. From the terminal 
 
 `oc new-project cp4i-setup`
 
-This command will create the project and 
+This command will create the project and will start using the project as shown below. 
+
+![](./img/newproject.png)
+
+Next we will create all the definitions required for the pipeline within this project. We will use the below shown command to create OpenShift resources using all the definitions files you have previously reviewed. 
+
+`oc create -f <definition.yaml>`
+
+In terminal window, change directory to `/home/ibmuser/Think2020/lab-5280/Tekton/Secrets`. You should see the definitions for secrets you have previously updated in this directory as shown below. 
+
+![](./img/create-secrets.png)
+
+Using the command provided above, create the three secrets as shown below. 
+
+![](./img/create-secrets1.png)
+
+Next change directory to `/home/ibmuser/Think2020/lab-5280/Tekton/Resources`. You should see the definitions for pipeline resources you have previously reviewed as shown below. 
+
+![](./img/create-resources.png)
+
+Using the command, create the two pipeline resources as shown below.
+
+![](./img/create-resources1.png)
+
+
+
