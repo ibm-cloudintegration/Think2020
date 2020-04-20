@@ -1,3 +1,12 @@
+---
+title: Achieving Agile Integration
+toc: false
+folder: master
+permalink: /agile.html
+summary: api docs
+applies_to: [developer,administrator,consumer]
+---
+
 # Introduction
 
 ## Achieving Agile Integration Architecture
@@ -14,7 +23,7 @@ In [Part 1](#Part 1: Test the the integration application locally using ACE dock
 
 In [Part 2](#Part 2: Deploy the integration application to OpenShift Container Platform using OpenShift pipelines), you will use DevOps principles to deploy the integration application to OpenShift Container Platform using OpenShift pipelines and Tekton dashboard which allows you to run CI/CD pipeline in a Kubernetes-native approach to perform fully automated deployment. You will configure OpenShift pipeline, Tekton dashboard and configure the pipeline artifacts required to automate deployment of the integration application to OpenShift within Cloud Pak for Integration. 
 
-[Cloud for Integration](https://www.ibm.com/cloud/cloud-pak-for-integration) runs on Red Hat OpenShift container platform and is an integration platform for cloud native modern applications. 
+[Cloud for Pak for Integration](https://www.ibm.com/cloud/cloud-pak-for-integration) runs on Red Hat OpenShift container platform and is an integration platform for cloud native modern applications. 
 
 ### Environment used for this lab
 
@@ -86,6 +95,7 @@ Run the ACE image in a docker container using below command for local testing of
 
 `docker run --name acetestserver -p 7600:7600 -p 7800:7800 -p 7843:7843 --env LICENSE=accept --env ACE_SERVER_NAME=TESTSERVER ibmcom/ace:latest`
 
+if you see an error that the container name is already in use, change the `--name` parameter to a new values e.g. `--name acetestserver2`
 
 Command will start ACE integration server running in local docker container. You should see the following messages:
 
@@ -171,7 +181,7 @@ You will see four directories  as shown above, where the name of each directory 
 
 The definition `ace-server-deploy-pipeline.yaml` builds an ace image with the compiled integration application bar file and deployes the image to Cloud Pak for Integration OpenShift platform. 
 
-In terminal, type`atom` to open the editor to review these definitions.
+In terminal, type`atom` to open the editor to review these definitions.  You can safely ignore any warning pop up messages the atom editor brings up.  Click on the `X` on the pop up to remove it.
 
 ![](./img/atom.png)
 
@@ -191,7 +201,7 @@ You can see the pipeline definition is calling tasks `build-image` and `install-
 
 The first task definition `build-ace-server-task.yaml` builds an ace image with the compiled integration application bar file and pushes the image into OpenShift image registry. 
 
-Select this task to review the definition and you can see an input property `dockerfileLocation` from where it fetches Dockerfile to build the ace image. The tasks uses `Git` as input resource and `OpenShift image repository` as output resource. The `Dockerfile` used by the task can be found in directory `/home/ibmuser/Think2020/cp4i-ace-server`. The build is performed by a cloud native tool called `buildah` which facilitates building container images. During execution of the pipeline, buildah is pulled from quay.io repository if it is not available locally. 
+Select the `buld-ace-server-task.yaml` task to review the definition and you can see an input property `dockerfileLocation` from where it fetches Dockerfile to build the ace image. The tasks uses `Git` as input resource and `OpenShift image repository` as output resource. The `Dockerfile` used by the task can be found in directory `/home/ibmuser/Think2020/cp4i-ace-server`. The build is performed by a cloud native tool called `buildah` which facilitates building container images. During execution of the pipeline, buildah is pulled from quay.io repository if it is not available locally. 
 
 Select the second task `ace-server-deploy-pipeline.yaml` to review the definition. This task deployes the ace image that was built by the build task to Cloud Pak for Integration OpenShift platform. This task requires CLI tools `oc, cloudctl and helm` to perform the deployment. When pipeline is executed, during the task run the docker image specifically built with these tools is pulled from `docker.io/pimandi/cloudctl-helm-oc`.
 
