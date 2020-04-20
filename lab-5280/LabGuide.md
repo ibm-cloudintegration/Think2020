@@ -7,9 +7,9 @@ summary: api docs
 applies_to: [developer,administrator,consumer]
 ---
 
-# Introduction
+# Achieving Agile Integration
 
-## Achieving Agile Integration Architecture
+## Introduction
 
 Modern applications are moving away from large-scale, monolithic architectures to more loosely coupled architectures based on microservices principles. This requires integrations to adopt microservices principles to enable agile updates, elastic scalability, ability to add or drop service functionality. The traditional centralized ESBs have a rigid infrastructure and does not provide the flexibility required for new architectures. Modern loosely coupled applications architectures require agile integration. 
 
@@ -62,7 +62,7 @@ The artifacts for the lab can be found in the following directories.
 Note: You will need an account on `github.com` to perform this lab. You can use your existing account if you have one. If not, you can create a account on [github.com](github.com) before proceeding.
 -
 
-### Part 1: Test the the integration application locally using ACE docker image
+## Part 1: Test the the integration application locally using ACE docker image
 
 
 In this section of the lab, you will start with simple integration application and test the application locally using ACE docker image to ensure it is ready for deployment to OpenShift Container Platform. You will: 
@@ -72,7 +72,7 @@ In this section of the lab, you will start with simple integration application a
 3. Perform local testing of the provided compiled integration application by deploying the BAR file to a local Docker ACE Container. 
 
 
-####1. Pull ACE docker image from Docker Hub 
+###1. Pull ACE docker image from Docker Hub 
 
 Pull the docker image for ACE from Docker Hub repository using command:
 
@@ -89,7 +89,7 @@ See the docker images available in local repository using command:
 ![](./img/dockerimages.png)
 
 
-####2. Run Integration Server within docker container for local testing
+###2. Run Integration Server within docker container for local testing
 
 Run the ACE image in a docker container using below command for local testing of the integration application 
 
@@ -104,7 +104,7 @@ Command will start ACE integration server running in local docker container. You
 
 Leave the terminal window open with the integration server running in docker container. If you interrupt the command it will stop the Integration server and terminate the container.
 
-####3. Perform local testing of the provided compiled integration application (bar file)
+###3. Perform local testing of the provided compiled integration application (bar file)
 
 Open another terminal window and change directory to `/home/ibmuser/Think2020/cp4i-ace-server-master/cp4iivt/gen`
 
@@ -132,7 +132,7 @@ This completes Part 1 of the lab.  This shows that the integration application i
 
 -
 
-###Part 2: Deploy the integration application to Cloud Pak for Integration OpenShift Container Platform using OpenShift pipelines 
+##Part 2: Deploy the integration application to Cloud Pak for Integration OpenShift Container Platform using OpenShift pipelines 
 
 In this part of the lab, you will learn:
 
@@ -143,7 +143,7 @@ In this part of the lab, you will learn:
 
 This shows you how to acheive aigle integration. 
 
-####1. Basic concepts of OpenShift pipelines
+###1. Basic concepts of OpenShift pipelines
 
 OpenShift Pipelines is a cloud native Kubernetes-style CI/CD solution designed to run each step of the CI/CD pipeline in its own container, allowing each step to scale independently to meet the demands of the pipeline. OpenShift Pipelines is based on Tekton open source project. 
 
@@ -166,7 +166,7 @@ Following diagram shows all the artifacts and the references between them:
 ![](./img/Tekton-pipeline.png)
 
 
-####2. Define a pipeline to automate build and deploy ace integration application
+###2. Define a pipeline to automate build and deploy ace integration application
 
 
 The definitions required to automate build and deploy an ace integration for this lab have been provided for you. You can find them in directory `/home/ibmuser/Think2020/lab-5280/Tekton`. 
@@ -235,11 +235,11 @@ To get the OpenShift login token, open Firefox browser and click on the bookmark
 
 This will take you to the log in page with a couple of login options. Select `htpasswd` option to login to OpenShift as shown below. 
 
-![](./img/Console-login.png)
+![](./img/console-login.png)
 
 Click on `Login` usinig the pre-filled userid and password as shown below. 
 
-![](./img/Console-login1.png)
+![](./img/console-login1.png)
 
 Next, to get the login token required for the Secret, click on drop down arrow next to userid `admin` at the top right corner as shown below and select `Copy Login Command`. 
 
@@ -291,7 +291,7 @@ In the terminal window, change directory to `/home/ibmuser/Think2020/lab-5280` a
 
 This completes creating all the custom resource definitions required to run the pipeline. Now that you have all the definitions required to run the pipeline for your environment, we are ready to run the pipeline. 
 
-####3. Run the pipeline using Tekton dashboard and check status 
+###3. Run the pipeline using Tekton dashboard and check status 
 
 We will run the pipeline using Tekton dashboard that has been installed in the lab environment. In Firefox browser, click on the bookmark `Tekton Dashboard` as shown below.
 
@@ -347,7 +347,7 @@ The integration application provides a REST api to be called by external applica
 
 We will create a route from OpenShift console. From Firefox, click on the bookmark to open OpenShift console as shown below. 
 
-  ![](./img/console.png)
+  ![](./img/Console.png)
 
 In the console, scroll down to `Networking` and click on the drop down and select `Routes` as shown below.
 
