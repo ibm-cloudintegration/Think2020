@@ -212,7 +212,50 @@ Click on the definition `cp4i-git-secret.yaml` and update with your Git username
 
 The next definition that needs to be updated is `cp4i-docker-secret-yaml`. This definition is for the docker credentials for the pipeline to push the image to OpenShift registry. 
 
-Click on the definition `cp4i-docker-secret.yaml` and update the parameters shown below with your the credentials for your environment.
+Click on the definition `cp4i-docker-secret.yaml` and update the parameter shown below with OpenShift login token for your environment. Note, in the lab environment the username is set to `admin`. 
 
 ![](./img/docker-secret.png)
 
+To get the OpenShift login token, open Firefox browser and click on the bookmark `Console - OpenShift` as shown below. 
+
+![](./img/Console.png)
+
+This will take you to the log in page with a couple of login options. Select `htpasswd` option to login to OpenShift as shown below. 
+
+![](./img/Console-login.png)
+
+Click on `Login` usinig the pre-filled userid and password as shown below. 
+
+![](./img/Console-login1.png)
+
+Next, to get the login token required for the Secret, click on drop down arrow next to userid `admin` at the top right corner as shown below and select `Copy Login Command`. 
+
+![](./img/login-token.png)
+
+This will open up a new brower page with a link to `Display Token` as shown below. 
+
+![](./img/login-token1.png)
+
+Click on the `Display Token` link to get the login token and the command to use to login from a terminal. 
+
+![](./img/login-token2.png)
+
+Copy the command and paste it in a terminal to get logged into OpenShift as shown below so you can run commands from the terminal later. 
+
+![](./img/cli-login.png)
+
+Also copy the token and update the definition for secret `cp4i-docker-secret.yaml`
+
+![](./img/docker-secret-updated.png)
+
+Now that you have all the definitions required to run the pipeline for your environment, we are ready to run the pipeline. 
+
+#####3. Run the pipeline using Tekton dashboard and check status 
+
+In this lab we will use OpenShift pipelines as the CI/CD tool and Tekton dashboard to run the pipeline and see the status. These tools have already been installed for you in the lab environment. 
+
+Openshift pipeline requires a project for running a pipeline. From the terminal in which you logged into OpenShift earlier, run the following command to create the project `cp4i-setup`.
+
+`oc new-project cp4i-setup`
+
+This command will create the project and 
