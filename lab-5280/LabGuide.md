@@ -1,7 +1,7 @@
 ---
 title: Achieving Agile Integration
 toc: false
-folder: master
+folder: master/Think2020/lab-5280
 permalink: /agile.html
 summary: api docs
 applies_to: [developer,administrator,consumer]
