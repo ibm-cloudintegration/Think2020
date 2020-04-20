@@ -7,7 +7,7 @@ summary: api docs
 applies_to: [developer,administrator,consumer]
 ---
 
-# Achieving Agile Integration
+# Achieving Agile Integration Lab
 
 ## Introduction
 
@@ -44,9 +44,6 @@ In [Part 2](#Part 2: Deploy the integration application to OpenShift Container P
 		
 	Note, the password contains a zero, not an uppercase letter O.
 	
-
-
- 
 
 3. The artifacts to perform this lab are available on a public Git repo. Open a terminal window and clone the git repo using below command.
 
