@@ -45,12 +45,10 @@ In [Part 2](#Part 2: Deploy the integration application to OpenShift Container P
 	Note, the password contains a zero, not an uppercase letter O.
 	
 
-
- 
-
 3. The artifacts to perform this lab are available on a public Git repo. Open a terminal window and clone the git repo using below command.
 
 `git clone https://github.com/ibm-cloudintegration/Think2020.git`
+
 
 ![](./img/gitclone.png)
 
@@ -72,7 +70,7 @@ In this section of the lab, you will start with simple integration application a
 3. Perform local testing of the provided compiled integration application by deploying the BAR file to a local Docker ACE Container. 
 
 
-###1. Pull ACE docker image from Docker Hub 
+### Pull ACE docker image from Docker Hub 
 
 Pull the docker image for ACE from Docker Hub repository using command:
 
@@ -89,7 +87,7 @@ See the docker images available in local repository using command:
 ![](./img/dockerimages.png)
 
 
-###2. Run Integration Server within docker container for local testing
+### Run Integration Server within docker container for local testing
 
 Run the ACE image in a docker container using below command for local testing of the integration application 
 
@@ -104,7 +102,7 @@ Command will start ACE integration server running in local docker container. You
 
 Leave the terminal window open with the integration server running in docker container. If you interrupt the command it will stop the Integration server and terminate the container.
 
-###3. Perform local testing of the provided compiled integration application (bar file)
+### Perform local testing of the provided compiled integration application (bar file)
 
 Open another terminal window and change directory to `/home/ibmuser/Think2020/cp4i-ace-server-master/cp4iivt/gen`
 
@@ -132,7 +130,7 @@ This completes Part 1 of the lab.  This shows that the integration application i
 
 -
 
-##Part 2: Deploy the integration application to Cloud Pak for Integration OpenShift Container Platform using OpenShift pipelines 
+## Part 2: Deploy the integration application to Cloud Pak for Integration OpenShift Container Platform using OpenShift pipelines 
 
 In this part of the lab, you will learn:
 
@@ -143,7 +141,7 @@ In this part of the lab, you will learn:
 
 This shows you how to acheive aigle integration. 
 
-###1. Basic concepts of OpenShift pipelines
+### Basic concepts of OpenShift pipelines
 
 OpenShift Pipelines is a cloud native Kubernetes-style CI/CD solution designed to run each step of the CI/CD pipeline in its own container, allowing each step to scale independently to meet the demands of the pipeline. OpenShift Pipelines is based on Tekton open source project. 
 
@@ -166,7 +164,7 @@ Following diagram shows all the artifacts and the references between them:
 ![](./img/Tekton-pipeline.png)
 
 
-###2. Define a pipeline to automate build and deploy ace integration application
+### Define a pipeline to automate build and deploy ace integration application
 
 
 The definitions required to automate build and deploy an ace integration for this lab have been provided for you. You can find them in directory `/home/ibmuser/Think2020/lab-5280/Tekton`. 
@@ -291,7 +289,7 @@ In the terminal window, change directory to `/home/ibmuser/Think2020/lab-5280` a
 
 This completes creating all the custom resource definitions required to run the pipeline. Now that you have all the definitions required to run the pipeline for your environment, we are ready to run the pipeline. 
 
-###3. Run the pipeline using Tekton dashboard and check status 
+### Run the pipeline using Tekton dashboard and check status 
 
 We will run the pipeline using Tekton dashboard that has been installed in the lab environment. In Firefox browser, click on the bookmark `Tekton Dashboard` as shown below.
 
@@ -341,7 +339,7 @@ This should show the ace server pods running as shown below.
 
 Next, let us test the integration flow to confirm it is deployed. 
 
-####4. Test the integration application deployed by the pipeline 
+#### Test the integration application deployed by the pipeline 
 
 The integration application provides a REST api to be called by external applications. OpenShift requires a `route` to be created to expose a service externally. 
 
