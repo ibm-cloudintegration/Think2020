@@ -132,7 +132,7 @@ This completes Part 1 of the lab.  This shows that the integration application i
 
 -
 
-##Part 2: Deploy the integration application to Cloud Pak for Integration OpenShift Container Platform using OpenShift pipelines 
+## Part 2: Deploy the integration application to Cloud Pak for Integration OpenShift Container Platform using OpenShift pipelines 
 
 In this part of the lab, you will learn:
 
