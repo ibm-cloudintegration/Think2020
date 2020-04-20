@@ -368,3 +368,4 @@ Below is the output you should see in the browser when calling the url with inte
 This shows the integration applcation has been deployed usng DevOps automation with OpenShift pipelines. 
 
 
+This completes the lab. 
