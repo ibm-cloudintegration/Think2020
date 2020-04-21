@@ -57,7 +57,7 @@ The artifacts for the lab can be found in the following directories.
 
 -
 Note: You will need an account on `github.com` to perform this lab. You can use your existing account if you have one. If not, you can create a account on [github.com](github.com) before proceeding.
--
+
 
 ## Part 1
 
@@ -73,7 +73,7 @@ In this section of the lab, you will start with simple integration application a
 
 ### Pull ACE docker image from Docker Hub 
 
-Pull the docker image for ACE from Docker Hub repository using command:
+* Pull the docker image for ACE from Docker Hub repository using command:
 
 `docker pull ibmcom/ace`
 
@@ -81,7 +81,7 @@ The docker image is already loaded in the lab environment to save time from down
 
 ![](./img/dockerpullace.png)
 
-See the docker images available in local repository using command:
+* See the docker images available in local repository using command:
 
  `docker images`
 
@@ -90,40 +90,40 @@ See the docker images available in local repository using command:
 
 ### Run Integration Server within docker container for local testing
 
-Run the ACE image in a docker container using below command for local testing of the integration application 
+* Run the ACE image in a docker container using below command for local testing of the integration application 
 
 `docker run --name acetestserver -p 7600:7600 -p 7800:7800 -p 7843:7843 --env LICENSE=accept --env ACE_SERVER_NAME=TESTSERVER ibmcom/ace:latest`
 
 if you see an error that the container name is already in use, change the `--name` parameter to a new values e.g. `--name acetestserver2`
 
-Command will start ACE integration server running in local docker container. You should see the following messages:
+This command will start ACE integration server running in local docker container. You should see the following messages:
 
 
 ![](./img/acelocalrun.png)
 
-Leave the terminal window open with the integration server running in docker container. If you interrupt the command it will stop the Integration server and terminate the container.
+* Leave the terminal window open with the integration server running in docker container. If you interrupt the command it will stop the Integration server and terminate the container.
 
 ### Perform local testing of the provided compiled integration application (bar file)
 
-Open another terminal window and change directory to `/home/ibmuser/Think2020/cp4i-ace-server-master/cp4iivt/gen`
+* Open another terminal window and change directory to `/home/ibmuser/Think2020/cp4i-ace-server-master/cp4iivt/gen`
 
-Deploy the bar file `cp4ivt.bat` in this directory using the following command. The bar file consists of a simple REST API integration flow. 
+* Deploy the bar file `cp4ivt.bat` in this directory using the following command. The bar file consists of a simple REST API integration flow. 
 
-mqsideploy --admin-host localhost --admin-port 7600 --bar-file cp4iivt.bar
+`mqsideploy --admin-host localhost --admin-port 7600 --bar-file cp4iivt.bar`
 
 ![](./img/mqsideploy.png)
 
 The output messages from the command shows the bar file has been successfully deployed to the integration server you have previously started as docker container. 
 
-Test the simple integration flow by starting Firefox browser and enter the below url to call the API. 
+* Test the simple integration flow by starting Firefox browser and enter the below url to call the API. 
 
 `http://localhost:7800/cp4iivt/v1/hello`
 
-You should see the result as shown below:
+* You should see the result as shown below:
 
 ![](./img/localtest.png)
 
-As an optional, you can review the integration flow in the project directory using ACE toolkit.
+* As an optional, you can review the integration flow in the project directory using ACE toolkit.
 
  `/home/ibmuser/Think2020/cp4i-ace-server-master/cp4iivt/`
  
