@@ -7,7 +7,9 @@ summary: api docs
 applies_to: [developer,administrator,consumer]
 ---
 
-# Achieving Agile Integration Lab
+# Achieving Agile Integration - Lab 5280
+
+This lab was designed and written by: [Prasad Imandi](mailto:imandi@us.ibm.com) (imandi@us.ibm.com), [Rengan Sundararaman](mailto:rsundara@us.ibm.com) (rsundara@us.ibm.com) and [Michael Alley](mailto:malley@us.ibm.com) (malley@us.ibm.com)
 
 ## Introduction
 
