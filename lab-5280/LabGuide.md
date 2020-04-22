@@ -63,7 +63,7 @@ Note: You will need an account on `github.com` to perform this lab. You can use 
 
 ## Part 1
 
-###Test the integration application locally using ACE docker image
+### Test the integration application locally using ACE docker image
 
 
 In this section of the lab, you will start with simple integration application and test the application locally using ACE docker image to ensure it is ready for deployment to OpenShift Container Platform. You will: 
