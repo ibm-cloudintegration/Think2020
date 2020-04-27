@@ -144,7 +144,7 @@ In this part of the lab, you will learn:
 3. Run the pipeline using Tekton dashboard and check status 
 4. Test the integration application deployed by the pipeline
 
-This shows you how to acheive aigle integration. 
+This shows you how to acheive agile integration. 
 
 ### Basic concepts of OpenShift pipelines
 
@@ -152,7 +152,7 @@ OpenShift Pipelines is a cloud native Kubernetes-style CI/CD solution designed t
 
 Follow this [link for a short introduction to OpenShift Pipelines](https://www.openshift.com/blog/cloud-native-ci-cd-with-openshift-pipelines)
 
-OpenShift CI/CD pipline is defined usig a set of Kubernetes custom resource definitions (CRD). The following is a brief introduction to these CRDs:
+OpenShift CI/CD pipeline is defined using a set of Kubernetes custom resource definitions (CRD). The following is a brief introduction to these CRDs:
 
 
 *     **Pipeline:** A collection of tasks that are executed in a defined order.
@@ -270,7 +270,7 @@ Next, we will create all the definitions in OpenShift.
 
 * `oc new-project cp4i-setup`
 
-This command will create the project and will start using the project as shown below. 
+This command will create the project and will start using the project as shown below. You might see that this project already exists on your lab image.  Feel free to use it.
 
 ![](./img/newproject.png)
 
