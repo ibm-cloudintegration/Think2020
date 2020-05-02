@@ -28,7 +28,10 @@
       "type" : "object",
       "properties" : {
         "greetings" : {
-          "type" : "string"
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
         }
       }
     }

@@ -4,6 +4,7 @@
     <output derivedFrom="MB:JSON_schema_in_swagger_document" path="/swagger.json" var="var1"/>
     <namespaces>
         <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+        <namespace kind="extension" prefix="fn" uri="http://www.w3.org/2005/xpath-functions"/>
     </namespaces>
     <generation engine="xquery"/>
     <mappingDeclaration name="getHello_Mapping">
@@ -21,8 +22,14 @@ The path and query parameters are provided under "Parameters".
 You may need to use these as inputs to your mappings.</documentation>
             <input path="$ComIbmMessageAssembly_BLOB/LocalEnvironment/REST/Input"/>
         </task>
-        <assign value="Hello from AppConnect Enterprise powered by Cloud Pak for Integration">
+        <local>
             <output path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/greetings"/>
-        </assign>
+            <assign value="Hello from AppConnect Enterprise powered by Cloud Pak for Integration">
+                <output path="Item"/>
+            </assign>
+            <function ref="fn:current-dateTime">
+                <output path="Item"/>
+            </function>
+        </local>
     </mappingDeclaration>
 </mappingRoot>
