@@ -29,7 +29,7 @@ In [Part 2](#part-2), you will use DevOps principles to deploy the integration a
 
 ### Environment used for this lab
 
-1\. Cloud Pak for Integration runnnig on OpenShift Container Platform V4.2 running with one master, and four worker nodes. 
+1\. Cloud Pak for Integration running on OpenShift Container Platform V4.2 running with one master, and four worker nodes. 
 
 2\. In this lab we are using OpenShift pipelines as the CI/CD tool and Tekton dashboard to run the pipeline and see the status. These tools have already been installed for you in the lab environment. 
 
