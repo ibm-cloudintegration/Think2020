@@ -13,7 +13,7 @@ This lab was designed and written by: [Prasad Imandi](mailto:imandi@us.ibm.com) 
 
 ## Introduction
 
-Modern applications are moving away from large-scale, monolithic architectures to more loosely coupled architectures based on microservices principles. This requires integrations to adopt microservices principles to enable agile updates, elastic scalability, ability to add or drop service functionality. The traditional centralized ESBs have a rigid infrastructure and does not provide the flexibility required for new architectures. Modern loosely coupled applications architectures require agile integration. 
+Modern applications are moving away from large-scale, monolithic architectures to more loosely coupled architectures based on microservices principles. This requires integrations to adopt microservices principles to enable agile updates, elastic scalability, and the ability to add or drop service functionality. The traditional centralized ESBs have a rigid infrastructure and does not provide the flexibility required for new architectures. Modern loosely coupled applications architectures require agile integration. 
 
 IBM App Connect Enterprise V11 delivers a platform that supports [agile integration](https://www.ibm.com/cloud/integration/agile-integration) required for a modern digital enterprise. 
 
@@ -107,11 +107,11 @@ This command will start ACE integration server running in local docker container
 
 ### Perform local testing of the provided compiled integration application (bar file)
 
-* Open another terminal window and change directory to `/home/ibmuser/Think2020/cp4i-ace-server-master/cp4iivt/gen`
+* Open another terminal window and change directory to `/home/ibmuser/Think2020/cp4i-ace-server/cp4iivt/gen`
 
-* Deploy the bar file `cp4ivt.bat` in this directory using the following command. The bar file consists of a simple REST API integration flow. 
+* Deploy the bar file `cp4ivt.bar` in this directory using the following command. The bar file consists of a simple REST API integration flow. 
 
-`mqsideploy --admin-host localhost --admin-port 7600 --bar-file cp4iivt.bar`
+`mqsideploy --admin-host localhost --admin-port 7600 --bar-file cp4ivt.bar`
 
 ![](./img/mqsideploy.png)
 
@@ -123,11 +123,11 @@ The output messages from the command shows the bar file has been successfully de
 
 * You should see the result as shown below:
 
-![](./img/localtest.png)
+![](./img/localtest1.png)
 
 * As an optional, you can review the integration flow in the project directory using ACE toolkit.
 
- `/home/ibmuser/Think2020/cp4i-ace-server-master/cp4iivt/`
+ `/home/ibmuser/Think2020/cp4i-ace-server/cp4iivt/`
  
 This completes Part 1 of the lab.  This shows that the integration application in bar file cp4ivt.bar is tested locally and ready for deployment to Cloud Pak for Integration using DevOps OpenShift pipelines. 
 
@@ -206,7 +206,7 @@ The first task definition `build-ace-server-task.yaml` builds an ace image with 
 
 * Select the `buld-ace-server-task.yaml` task to review the definition and you can see an input property `dockerfileLocation` from where it fetches Dockerfile to build the ace image. The tasks uses `Git` as input resource and `OpenShift image repository` as output resource. The `Dockerfile` used by the task can be found in directory `/home/ibmuser/Think2020/cp4i-ace-server`. The build is performed by a cloud native tool called `buildah` which facilitates building container images. During execution of the pipeline, buildah is pulled from quay.io repository if it is not available locally. 
 
-* Select the second task `ace-server-deploy-pipeline.yaml` to review the definition. This task deployes the ace image that was built by the build task to Cloud Pak for Integration OpenShift platform. This task requires CLI tools `oc, cloudctl and helm` to perform the deployment. When pipeline is executed, during the task run the docker image specifically built with these tools is pulled from `docker.io/pimandi/cloudctl-helm-oc`.
+* Select the second task `install-ace-server-task.yaml` to review the definition. This task deployes the ace image that was built by the build task to Cloud Pak for Integration OpenShift platform. This task requires CLI tools `oc, cloudctl and helm` to perform the deployment. When pipeline is executed, during the task run the docker image specifically built with these tools is pulled from `docker.io/pimandi/cloudctl-helm-oc`.
 
 3\. `Resources` : The resource definitions used by the tasks are provided for you in this directory. In atom editor, expand this directory and you will see the two resource definitions `cp4i-ace-server-source-pipelineresource.yaml` and `cp4i-ace-server-image-pipelineresource.yaml`. 
 
@@ -240,15 +240,17 @@ The next definition that needs to be updated is `cp4i-docker-secret-yaml`. This 
 
 ![](./img/console-login.png)
 
-* Click on `Login` usinig the pre-filled userid and password as shown below. 
+* Click on `Login` using the pre-filled userid and password as shown below. 
 
 ![](./img/console-login1.png)
 
 * Next, to get the login token required for the Secret, click on drop down arrow next to userid `admin` at the top right corner as shown below and select `Copy Login Command`. 
 
+This will take you to the log in page with a couple of login options. Select htpasswd option to login to OpenShift and Click on on Login as shown previously
+
 ![](./img/login-token.png)
 
-This will open up a new brower page with a link to `Display Token` as shown below. 
+This will open up a new browser page with a link to `Display Token` as shown below. 
 
 ![](./img/login-token1.png)
 
@@ -260,7 +262,7 @@ This will open up a new brower page with a link to `Display Token` as shown belo
 
 ![](./img/cli-login.png)
 
-* Also copy the token and update the definition for secret `cp4i-docker-secret.yaml`
+* Also copy the API token from the browser window and update the definition for secret `cp4i-docker-secret.yaml` and save.
 
 ![](./img/docker-secret-updated.png)
 
@@ -288,15 +290,18 @@ Next we will create all the definitions required for the pipeline within this pr
  
 `oc edit sa pipeline`
  
- This opens the definition in a `vi` editor. Update with the secrets by adding docker-secret and git-secret as shown below and save. 
+ This opens the definition in a `vi` editor. Update with the secrets by adding docker-secret and git-secret as shown below and save.   It is possible you might see this item already being complete on your lab image. If that is the case, you can note as such and carry on.
  
   ![](./img/sa-update.png)
+  
 
 This completes creating all the custom resource definitions required to run the pipeline. Now that you have all the definitions required to run the pipeline for your environment, we are ready to run the pipeline. 
 
 ### Run the pipeline using Tekton dashboard and check status 
 
 We will run the pipeline using Tekton dashboard that has been installed in the lab environment. In Firefox browser, click on the bookmark `Tekton Dashboard` as shown below.
+
+This will take you to the log in page with a couple of login options. Select `htpasswd` option to login to OpenShift and Click on `Login` as shown previously.  
 
   ![](./img/tekton-db.png)
 
@@ -312,9 +317,9 @@ You should see the Tekton dashboard as below. Note the pipeline you have created
 
   ![](./img/tekton-db2.png)
   
-* This will open a window with parameters to input for creating a PipelineRun. Select the values for source, image from the drop down and enter 1.1 for buildversion as shown below. 
+* This will open a window with parameters to input for creating a PipelineRun. Select the values for source, image from the drop down and enter 1.2 for buildversion as shown below. 
 
-  ![](./img/tekton-db3.png)
+  ![](./img/tekton-db3a.png)
 
 * Scroll down and select `pipeline` for ServiceAccount from the drop down. Leave default values for the remaining parameters and click on `Create` to start the pipeline as shown below. 
 
@@ -333,6 +338,10 @@ Once the pipeline run is completed, you should see the follownig showing a succe
   ![](./img/tekton-db7.png)
 
 * You can click on `Logs, Status and Details` and look at the detailed messages generated during the pipeline run. 
+
+Click on `PipelineRuns` as shown below and You can see the build and deploy of an Integration application with ACE image all completed in just a few minutes, thus enabling you to “Achieve Agile Integration”
+
+![](./img/tekton-db8.png)
 
 * To confirm the ace server has been deployed, go to the terminal you used before to create the defintions and run the below command to check on the pods in `ace` project. 
 
@@ -375,7 +384,7 @@ This will create the route for external applications to call the integration RES
 
 Below is the output you should see in the browser when calling the url with integration API endpoint. 
 
-  ![](./img/console-route4.png)
+  ![](./img/console-route4a.png)
   
 
 This shows the integration applcation has been deployed usng DevOps automation with OpenShift pipelines. 
