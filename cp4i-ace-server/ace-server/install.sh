@@ -3,7 +3,7 @@ PROJECT=ace-deploy
 RELEASE=$PROJECT-dev
 
 ACE_IMAGE=$IMAGE
-# PULL_SECRET=deployer-dockercfg-wc87b
+# PULL_SECRET=deployer-dockercfg-wc87b ## Think lab env secret #
 PULL_SECRET=deployer-dockercfg-pz5qh
 PRODUCTION_DEPLOY=false
 TLS_HOSTNAME=$(oc get routes -n kube-system | grep proxy | awk -F' ' '{print $2 }')
