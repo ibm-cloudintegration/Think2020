@@ -1,0 +1,56 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: ace-server-deploy
+spec:
+  params:
+    - name: buildversion
+      description: Docker image version for the BAR file
+      default: ""
+    - name: env
+      default: "dev"
+      description: Specfiy the current environment. It is used in computing the Helm release name.
+    - name: production
+      default: "false"
+      description: Specifies if the deployment is production-like with High Availability enabled. Default [false]
+  resources:
+    - name: source
+      type: git
+    - name: image
+      type: image
+  tasks:
+  - name: build-image
+    resources:
+      inputs:
+      - name: source
+        resource: source
+      outputs:
+      - name: image
+        resource: image
+    params:
+      - name: buildversion
+        value: $(params.buildversion)
+      - name: dockerfileLocation
+        value: ./cp4i-ace-server/Dockerfile
+    taskRef:
+      name: build-ace-server  
+  - name: install-ace-server
+    resources:
+      inputs:
+      - name: source
+        resource: source
+      - name: image
+        resource: image
+    params:
+    - name: production
+      value: $(params.production)
+    - name: env
+      value: $(params.env)
+    - name: integrationComponent
+      value: ace-server
+    - name: buildversion
+      value: $(params.buildversion)
+    taskRef:
+      name: install-ace-server
+    runAfter:
+    - build-image

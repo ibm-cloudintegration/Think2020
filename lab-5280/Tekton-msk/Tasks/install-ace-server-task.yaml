@@ -1,0 +1,75 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: install-ace-server
+spec:
+  inputs:
+    resources:
+    - name: source
+      type: git
+    - name: image
+      type: image
+    params:
+    - name: integrationComponent
+      default: ace-server
+      description: The integration component that needs to be installed.
+    - name: env
+      default: "dev"
+      description: Specfiy the current environment. It is used in computing the Helm release name.
+    - name: production
+      default: "false"
+      description: Specifies if the deployment is production-like with High Availability enabled. Default [false]
+    - name: project
+      description: Specify the name of the project being built.
+      default: cp4iivt
+    - name: buildversion
+      description: Docker image version for the BAR file
+      default: ""
+            
+  steps:
+  - name: install-instance
+    image: docker.io/pimandi/cloudctl-helm-oc
+    workingdir: /workspace/source
+    env:
+      - name: INTEGRATION_COMPONENT
+        value: $(inputs.params.integrationComponent)
+      - name: PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: common-services
+            key: password
+      - name: USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: common-services
+            key: username
+      - name: CLUSTER
+        valueFrom:
+          secretKeyRef:
+            name: common-services
+            key: url
+      - name: PRODUCTION
+        value: $(inputs.params.production) 
+      - name: ENV
+        value: $(inputs.params.env) 
+      - name: IMAGE
+        value: "$(inputs.resources.image.url):$(inputs.params.buildversion)"
+      - name: ACE_PROJECT
+        value: $(inputs.params.project) 
+        
+    command: ["/bin/sh"]
+    args:
+      - -c
+      - |
+        set -eu;
+        cloudctl login -a $CLUSTER -n integration -u $USERNAME -p $PASSWORD --skip-ssl-validation
+        echo Component      : $INTEGRATION_COMPONENT;
+        echo Project        : $ACE_PROJECT;
+        echo Environment    : $ENV;
+        echo Image          : $IMAGE;
+
+        cd ./cp4i-ace-server/$INTEGRATION_COMPONENT;
+        echo "Running setup.sh";
+        sh setup.sh
+        echo "Running install.sh";
+        sh install.sh;

@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: cp4i-ace-server-source
+spec:
+  params:
+  - name: url
+    value: https://github.com/ibm-cloudintegration/Think2020
+  type: git
+

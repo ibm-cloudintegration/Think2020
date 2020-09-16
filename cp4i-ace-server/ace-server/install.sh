@@ -4,7 +4,7 @@ RELEASE=$PROJECT-dev
 
 ACE_IMAGE=$IMAGE
 # PULL_SECRET=deployer-dockercfg-wc87b ## Think lab env secret #
-PULL_SECRET=deployer-dockercfg-pz5qh
+PULL_SECRET=deployer-dockercfg-4fntl
 PRODUCTION_DEPLOY=false
 TLS_HOSTNAME=$(oc get routes -n kube-system | grep proxy | awk -F' ' '{print $2 }')
 # In case of IBM Cloud use ibmc-file-gold for the file storage
